@@ -26,41 +26,38 @@ def setup_bench():
 	print "Running playbook...................."
 	subprocess.call("python install.py --develop", shell=True)
 
-# def get_frappe():
-#     # subprocess.call("sudo mv frappe-bench/apps/frappe frappe-bench/frappe", shell=True)
-#     os.chdir('frappe-bench/')
-#     subprocess.call("bench get-app frappe https://gitlab.com/modernmachines/erpnext-mirror.git", shell=True)
 
-def get_erpnext():
+def get_erpnext(): #gets frappe-bench and erpnext
 	os.chdir('frappe-bench/')
 	print os.getcwd()
 	success = subprocess.call("bench get-app erpnext https://github.com/frappe/erpnext.git", shell=True)
-	if success == True:
-		success = subprocess.call("bench new-site testsite")
+	print "get-app erpnext: DONE"
+	print os.getcwd()
+
+	if success == True: #creates new site
+		success = run_os_command(
+			{'bench': 'bench new-site erpnext-test'}
+		)
+		# success = subprocess.call("bench new-site testsite")
 	else:
 		print "Fetching from https://github.com/frappe/erpnext repository FAILED!"
-	if success == True:
-		success = subprocess.call("bench --site testsite install-app erpnext")
+
+	if success == True: #installs erpnext to site
+		success = run_os_command(
+			{'bench': 'bench --site erpnext-test install-app erpnext'}
+		)
+		# success = subprocess.call("bench --site testsite install-app erpnext")
 	else:
 		print "Creating new site FAILED!"
+
 	if success == True:
 		print "Erpnext installed in the new site!"
 
-def create_new_site():
-	os.chdir('~/frappe-bench/')
-	# success = run_os_command(
-	# 	{'bench': 'bench new-site erpnext-mirror'}
-	# )
-	subprocess.call("bench new-site erpnext-mirror")
-	return success
-
 def bench_start():
-	os.chdir('frappe-bench/')
+	print os.getcwd()
 	subprocess.call("bench start", shell=True)
 
 
 setup_bench()
-# get_frappe()		#wala na dapat ni siya kay ang bench nagpoint na man padung sa gitlab na repo
 get_erpnext()
-# create_new_site()
 bench_start()
