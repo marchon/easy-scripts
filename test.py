@@ -30,26 +30,24 @@ def setup_bench():
 def get_erpnext(): #gets frappe-bench and erpnext
 	os.chdir('frappe-bench/')
 	print os.getcwd()
-	success = subprocess.call("bench get-app erpnext https://github.com/frappe/erpnext.git", shell=True)
-	print "get-app erpnext: DONE"
+	success = subprocess.call("bench get-app erpnext https://github.com/flomente96/erpnext.git", shell=True)
+	print "Fetching from https://github.com/frappe/erpnext repository FAILED!"
 	print os.getcwd()
+	print success
 
 	if success == True: #creates new site
 		success = run_os_command(
-			{'bench': 'bench new-site erpnext-test'}
+			{'bench': 'bench new-site erpnext'}
 		)
-		# success = subprocess.call("bench new-site testsite")
-
 	else:
-		print "Fetching from https://github.com/frappe/erpnext repository FAILED!"
+		print "Creating new site FAILED!"
 
 	if success == True: #installs erpnext to site
 		success = run_os_command(
-			{'bench': 'bench --site erpnext-test install-app erpnext'}
+			{'bench': 'bench --site erpnext install-app erpnext'}
 		)
-		# success = subprocess.call("bench --site testsite install-app erpnext")
 	else:
-		print "Creating new site FAILED!"
+		print "Installing erpnext to new site FAILED!"
 
 	if success == True:
 		print "Erpnext installed in the new site!"
@@ -60,4 +58,4 @@ def bench_start():
 
 setup_bench()
 get_erpnext()
-bench_start()
+# bench_start()
