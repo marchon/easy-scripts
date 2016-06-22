@@ -34,7 +34,7 @@ def setup_bench():
 def get_erpnext():
 	os.chdir('frappe-bench/')
 	print os.getcwd()
-	success = subprocess.call("bench get-app erpnext https://github.com/frappe/erpnext.git", shell=True)
+	# success = subprocess.call("bench get-app erpnext https://github.com/frappe/erpnext.git", shell=True)
 	if success == True:
 		success = subprocess.call("bench new-site testsite")
 	else:
@@ -59,7 +59,7 @@ def bench_start():
 	subprocess.call("bench start", shell=True)
 
 
-setup_bench()
+# setup_bench()
 # get_frappe()		#wala na dapat ni siya kay ang bench nagpoint na man padung sa gitlab na repo
 get_erpnext()
 # create_new_site()
