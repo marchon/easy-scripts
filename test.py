@@ -31,7 +31,7 @@ def get_erpnext(): #gets frappe-bench and erpnext
 	os.chdir('frappe-bench/')
 	print os.getcwd()
 	success = subprocess.call("bench get-app erpnext https://github.com/flomente96/erpnext.git", shell=True)
-	print "Fetching from https://github.com/frappe/erpnext repository FAILED!"
+	print "Fetching from https://github.com/flomente96/erpnext.git repository FAILED!"
 	print os.getcwd()
 	print success
 
